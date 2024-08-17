@@ -33,6 +33,15 @@ export class BoardsService {
     }
     return result;
   }
+
+   async updateBoardStatus(id: number, status:BoardStatus): Promise<Board>{
+    const board = await this.getBoardById(id);
+
+    board.status=status;
+    await this.boardRepository.save(board);
+
+    return board;
+   }
   // private boards : Board[] = []; //memory repository
   //
   // getAllBoards() : Board[]{

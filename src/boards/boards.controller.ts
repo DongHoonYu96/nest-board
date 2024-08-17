@@ -35,6 +35,11 @@ export class BoardsController {
   deleteBoard(@Param('id', ParseIntPipe) id: number){ //제공되는 파이프로 검사해주시고
     return this.boardsService.deleteBoard(id);
   }
+
+  @Patch('/:id/status') //수정은 patch
+  updateBoardStatus(@Param('id', ParseIntPipe) id:number, @Body('status', BoardStatusValidationPipe) status:BoardStatus){
+    return this.boardsService.updateBoardStatus(id,status);
+  }
   // @Get()
   // getAllBoards() : Board[]{
   //   return this.boardsService.getAllBoards();
