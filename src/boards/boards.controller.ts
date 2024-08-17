@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { BoardsService } from "./boards.service";
 import { Board, BoardStatus } from "./board.model";
 import { CreateBoardDto } from "./dto/create-board.dto";
@@ -14,11 +14,12 @@ export class BoardsController {
 
   //생성은 post
   @Post()
+  @UsePipes(ValidationPipe)
   createBoard(    @Body() createBoardDto : CreateBoardDto) : Board{
     return this.boardsService.createBoard(createBoardDto);
   }
 
-  //www.sdfasdf?id=1234 가져오는 방법 = @param
+  //localhost:3030/boards/1234(id) 가져오는 방법 = @param
   @Get('/:id')
   getBoardByID(@Param('id') id:string) : Board{
     return this.boardsService.getBoardByID(id);
