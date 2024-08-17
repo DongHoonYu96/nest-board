@@ -12,7 +12,9 @@ export class BoardsService {
     @InjectRepository(BoardRepository) //변수에 의존성 주입해줘
     private boardRepository: BoardRepository) {
   }
-
+  async getAllBoards(){
+    return this.boardRepository.find(); //매개변수없음 -> 모든것 가져옴
+  }
   async getBoardById(id: number): Promise <Board>{
     const found = await this.boardRepository.findOneBy({ id: id });
 
