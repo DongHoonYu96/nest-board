@@ -27,7 +27,11 @@ export class BoardsService {
   }
 
   async deleteBoard(id : number){
-    return this.boardRepository.delete(id);
+    const result =  await this.boardRepository.delete(id); //기본제공되는 delete 사용
+    if(result.affected ===0){ //영향받은게 0개 === 못찾은경우 예외처리
+      throw new NotFoundException(`Can\`t find Board with id ${id}`);
+    }
+    return result;
   }
   // private boards : Board[] = []; //memory repository
   //
