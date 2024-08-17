@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { BoardStatus } from "./board.model";
+import { BoardStatus } from "./board-statuss.enum.";
 
 @Entity()
 export class Board extends BaseEntity{
@@ -14,4 +14,8 @@ export class Board extends BaseEntity{
 
   @Column()
   status : BoardStatus
+
+  // static async findOneByaa(id: string): Promise<Board> {
+  //   return this.findOne({ id })
+  // }
 }
