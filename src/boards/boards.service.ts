@@ -24,4 +24,13 @@ export class BoardsService {
     this.boards.push(board);
     return board;
   }
+
+  getBoardByID(id:string): Board{
+    return this.boards.find((board)=>board.id === id);
+  }
+
+  deleteBoard(id:string):void{
+    //filter => 해당 id제외 해서 새로운 boards를 만듬
+    this.boards = this.boards.filter((board) => board.id !== id);
+  }
 }
