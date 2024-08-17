@@ -33,4 +33,10 @@ export class BoardsService {
     //filter => 해당 id제외 해서 새로운 boards를 만듬
     this.boards = this.boards.filter((board) => board.id !== id);
   }
+
+  updateBoardStatus(id:string, status : BoardStatus) : Board{
+    const board = this.getBoardByID(id);
+    board.status = status;
+    return board;
+  }
 }
