@@ -34,8 +34,9 @@ export class BoardsService {
   }
 
   deleteBoard(id:string):void{
+    const found = this.getBoardByID(id);
     //filter => 해당 id제외 해서 새로운 boards를 만듬
-    this.boards = this.boards.filter((board) => board.id !== id);
+    this.boards = this.boards.filter((board) => board.id !== found.id);
   }
 
   updateBoardStatus(id:string, status : BoardStatus) : Board{
