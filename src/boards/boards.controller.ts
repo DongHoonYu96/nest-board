@@ -41,8 +41,8 @@ export class BoardsController {
   }
 
   @Delete('/:id')
-  deleteBoard(@Param('id', ParseIntPipe) id: number){ //제공되는 파이프로 검사해주시고
-    return this.boardsService.deleteBoard(id);
+  deleteBoard(@Param('id', ParseIntPipe) id: number , @GetUser() user : User){ //제공되는 파이프로 검사해주시고
+    return this.boardsService.deleteBoard(id, user);
   }
 
   @Patch('/:id/status') //수정은 patch

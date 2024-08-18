@@ -36,8 +36,8 @@ export class BoardsService {
       return this.boardRepository.createBoard(createBoardDto, user);
   }
 
-  async deleteBoard(id : number){
-    const result =  await this.boardRepository.delete(id); //기본제공되는 delete 사용
+  async deleteBoard(id : number, user:User){
+    const result =  await this.boardRepository.delete({id, user}); //기본제공되는 delete 사용
     if(result.affected ===0){ //영향받은게 0개 === 못찾은경우 예외처리
       throw new NotFoundException(`Can\`t find Board with id ${id}`);
     }
