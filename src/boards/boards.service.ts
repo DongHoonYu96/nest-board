@@ -13,8 +13,15 @@ export class BoardsService {
     @InjectRepository(BoardRepository) //변수에 의존성 주입해줘
     private boardRepository: BoardRepository) {
   }
-  async getAllBoards(){
-    return this.boardRepository.find(); //매개변수없음 -> 모든것 가져옴
+  async getAllBoards(user : User){
+    //raw sql생성, board table에서 할거임
+    const query= this.boardRepository.createQueryBuilder('board');
+
+    //로그인한 유저의 게시글만
+    query.where('board.userId = :userId', {userId: user.id});
+
+    const boards = await query.getMany(); //다 가져와
+    return boards;
   }
   async getBoardById(id: number): Promise <Board>{
     const found = await this.boardRepository.findOneBy({ id: id });
