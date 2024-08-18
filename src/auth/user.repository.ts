@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
 import { User } from "./user.entity";
 import { AuthCredentialsDto } from "./dto/auth-credentials.dto";
@@ -12,6 +12,16 @@ export class UserRepository extends Repository<User>{
   async createUser(authCredentialsDto : AuthCredentialsDto){
     const {username, password} = authCredentialsDto;
     const user = this.create({username,password}); //리포지토리.create => db저장용객체로 만들어줌
-    await this.save(user);
+
+    try {
+      await this.save(user);
+    } catch (error){
+      if(error.code==='23505'){
+        throw new ConflictException('Existing username');
+      }
+      else{
+        throw new InternalServerErrorException();
+      }
+    }
   }
 }
